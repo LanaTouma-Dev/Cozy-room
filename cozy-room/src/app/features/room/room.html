@@ -1,0 +1,40 @@
+<div class="room">
+  <!-- Background video -->
+  <video class="room-video" autoplay loop muted playsinline src="/visuals/room-bg.mp4" [muted]="true"></video>
+
+  <div class="overlay"></div>
+
+  <!-- Intention modal overlay -->
+  @if (!intentionSet) {
+  <div class="intention-overlay">
+    <div class="intention-card">
+      <p class="intention-prompt">before you settle in...</p>
+      <p class="intention-sub">what are you here to do today?</p>
+      <input class="intention-input" type="text" [(ngModel)]="intention"
+        placeholder="finishing a feature, reading, just existing..." (keyup.enter)="setIntention()" maxlength="80"
+        autofocus />
+      <button class="intention-btn" (click)="setIntention()">settle in</button>
+    </div>
+  </div>
+  }
+
+  <!-- Main room HUD -->
+  @if (intentionSet) {
+  <div class="hud">
+    <!-- Top left: presence -->
+    <div class="presence">
+      <span class="presence-dot"></span>
+      <span class="presence-text">{{ presenceText }}</span>
+    </div>
+
+    <!-- Top right: leave -->
+    <button class="leave-btn" (click)="leaveRoom()">leave quietly</button>
+
+    <!-- Bottom center: intention + timer -->
+    <div class="session-info">
+      <p class="session-intention">{{ intention }}</p>
+      <p class="session-timer">{{ timeDisplay }}</p>
+    </div>
+  </div>
+  }
+</div>
